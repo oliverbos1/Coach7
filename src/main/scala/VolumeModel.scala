@@ -9,38 +9,26 @@ object VolumeModel {
   val decreasePerStep = 1.0
   val deltaT = 1.0
 
-  def simulate(): Unit =
+  def compute(): List[(Double, Double)] = {
 
     @tailrec
-    def loop(t: Double, v: Double, times: List[Double], volumes: List[Double]): (List[Double], List[Double]) = {
+    def loop(t: Double, v: Double, result: List[(Double, Double)]): List[(Double, Double)] = {
 
       if (v <= 0) {
-        (times.reverse, volumes.reverse)
-      } else if (times.length > 100) {
-        (times, volumes)
+        result
       } else {
         val nextT = t + deltaT
         val nextV = v - decreasePerStep
 
-        loop(nextT, nextV, nextT :: times, nextV :: volumes)
+        loop(nextT, nextV, result :+ (nextT, nextV))
       }
     }
 
-    val (time, volume) =
-      loop(0.0, initialVolume, List(0.0), List(initialVolume))
+    loop(0.0, initialVolume, List((0.0, initialVolume)))
+  }
 
-    val chart = new XYChartBuilder()
-      .width(800)
-      .height(600)
-      .title("Volume over Time")
-      .xAxisTitle("Time (t)")
-      .yAxisTitle("Volume (v)")
-      .build()
-
-    chart.addSeries("Volume", time.toArray, volume.toArray)
-
-    new SwingWrapper(chart).displayChart()
-
+  @main def runVolumeModel(): Unit = {
+    val chartData = VolumeModel.compute()
+    Chart.display(values = chartData, xTitle = "Time (t)", yTitle = "Volume (v)")
+  }
 }
-@main def runVolumeModel(): Unit =
-  VolumeModel.simulate()
