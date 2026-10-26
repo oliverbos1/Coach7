@@ -10,12 +10,14 @@ object TruckDecelerationModel {
   val mass = 78.0
   val startVelocity = 12.5
   val deltaT = 0.01
+
   def airResistance(velocity: Double): Double = airResistanceConstant * math.pow(velocity, 2)
 
   def compute(): List[(Double, Double, Double)] = {
 
     @tailrec
-    def loop(time: Double, velocity: Double, distance: Double, result: List[(Double, Double, Double)]): List[(Double, Double, Double)] = {
+    def loop(time: Double, velocity: Double, distance: Double,
+             result: List[(Double, Double, Double)]): List[(Double, Double, Double)] = {
 
       if (velocity <= 0) {
         result
@@ -31,7 +33,6 @@ object TruckDecelerationModel {
 
         loop(newTime, newVelocity, newDistance, result :+ (time, velocity, distance))
       }
-
     }
 
     loop(0.0, startVelocity, 0.0, List((0.0, startVelocity, 0.0)))
@@ -39,7 +40,7 @@ object TruckDecelerationModel {
 
   @main def runTruckDecelerationModel(): Unit = {
     val chartData = TruckDecelerationModel.compute()
-    val velocityChartData = chartData.map{ case (times, velocities, _) =>
+    val velocityChartData = chartData.map { case (times, velocities, _) =>
       (times, velocities)
     }
     val distanceChartData = chartData.map { case (times, _, distances) =>
