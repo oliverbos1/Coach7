@@ -3,7 +3,7 @@ package com.oliverbos1.coach7
 import java.awt.Color
 import scala.annotation.tailrec
 
-object TruckDecelerationModel {
+object CyclistRollingOutModel {
 
   val airResistanceConstant = 0.5
   val rollingResistance = 100.0
@@ -19,7 +19,7 @@ object TruckDecelerationModel {
     def loop(time: Double, velocity: Double, distance: Double,
              result: List[(Double, Double, Double)]): List[(Double, Double, Double)] = {
 
-      if (velocity <= 0) {
+      if (velocity <= 0.0) {
         result
       } else {
         val resultingForce = rollingResistance + airResistance(velocity)
@@ -38,15 +38,15 @@ object TruckDecelerationModel {
     loop(0.0, startVelocity, 0.0, List((0.0, startVelocity, 0.0)))
   }
 
-  @main def runTruckDecelerationModel(): Unit = {
-    val chartData = TruckDecelerationModel.compute()
+  @main def runCyclistRollingOutModel(): Unit = {
+    val chartData = CyclistRollingOutModel.compute()
     val velocityChartData = chartData.map { case (times, velocities, _) =>
       (times, velocities)
     }
     val distanceChartData = chartData.map { case (times, _, distances) =>
       (times, distances)
     }
-    Chart.display(values = velocityChartData, xTitle = "Time (t)", yTitle = "Velocity (v)", Color.BLUE)
-    Chart.display(values = distanceChartData, xTitle = "Time (t)", yTitle = "Distance (s)", Color.GREEN)
+    Chart.display(values = velocityChartData, xTitle = "Time (s)", yTitle = "Velocity (m/s)", Color.BLUE)
+    Chart.display(values = distanceChartData, xTitle = "Time (s)", yTitle = "Distance (m)", Color(155, 80, 255))
   }
 }
