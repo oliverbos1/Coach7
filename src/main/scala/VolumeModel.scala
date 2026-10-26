@@ -1,6 +1,8 @@
 package com.oliverbos1.coach7
 
-import org.knowm.xchart.{XYChartBuilder, SwingWrapper}
+import org.knowm.xchart.{SwingWrapper, XYChartBuilder}
+
+import java.awt.Color
 import scala.annotation.tailrec
 
 object VolumeModel {
@@ -29,6 +31,6 @@ object VolumeModel {
 
   @main def runVolumeModel(): Unit = {
     val chartData = VolumeModel.compute()
-    Chart.display(values = chartData, xTitle = "Time (t)", yTitle = "Volume (v)")
+    Chart.display(values = chartData, xTitle = "Time (t)", yTitle = "Volume (v)", Color.RED)
   }
 }

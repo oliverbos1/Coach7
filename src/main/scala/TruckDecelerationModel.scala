@@ -1,5 +1,6 @@
 package com.oliverbos1.coach7
 
+import java.awt.Color
 import scala.annotation.tailrec
 
 object TruckDecelerationModel {
@@ -44,7 +45,7 @@ object TruckDecelerationModel {
     val distanceChartData = chartData.map { case (times, _, distances) =>
       (times, distances)
     }
-    Chart.display(values = velocityChartData, xTitle = "Time (t)", yTitle = "Velocity (v)")
-    Chart.display(values = distanceChartData, xTitle = "Time (t)", yTitle = "Distance (s)")
+    Chart.display(values = velocityChartData, xTitle = "Time (t)", yTitle = "Velocity (v)", Color.BLUE)
+    Chart.display(values = distanceChartData, xTitle = "Time (t)", yTitle = "Distance (s)", Color.GREEN)
   }
 }
