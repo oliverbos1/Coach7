@@ -21,7 +21,8 @@ object Chart {
     chart.getStyler.setLegendVisible(false)
 
     val (xValues, yValues) = values.unzip
-    chart.addSeries("Bleah", xValues.toArray, yValues.toArray).setMarker(SeriesMarkers.NONE).setLineColor(color).setShowInLegend(false)
+    chart.addSeries("Bleah", xValues.toArray, yValues.toArray)
+      .setMarker(SeriesMarkers.NONE).setLineColor(color).setShowInLegend(false)
 
     new SwingWrapper(chart).displayChart()
   }
