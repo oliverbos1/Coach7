@@ -33,7 +33,7 @@ object Chart {
   }
 
   def display(values: List[(Double, Double, Double)], xTitle: String, y1Title: String, y2Title: String,
-              color1: Color = Color.RED, color2: Color = Color.BLUE): Unit = {
+              color1: Color = Color.RED, color2: Color = Color.GREEN): Unit = {
     val xMin = values.map(_._1).min
     val xMax = values.map(_._1).max
     val y1Min = values.map(_._2).min
