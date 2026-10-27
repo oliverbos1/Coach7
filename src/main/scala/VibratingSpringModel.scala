@@ -1,6 +1,5 @@
 package com.oliverbos1.coach7
 
-import java.awt.Color
 import scala.annotation.tailrec
 
 object VibratingSpringModel {
@@ -11,6 +10,8 @@ object VibratingSpringModel {
   val startDisplacement = 0.0005
   val deltaT = 0.01
   val mass = 0.010
+
+  val airResistanceEnabled = true
 
   def springForce(displacement: Double): Double = -springConstant * displacement
 
@@ -25,7 +26,7 @@ object VibratingSpringModel {
       if (time >= 10.0) {
         result
       } else {
-        val resultingForce = springForce(displacement) - airResistance(velocity)
+        val resultingForce = springForce(displacement) - (if (airResistanceEnabled) airResistance(velocity) else 0.0)
         val acceleration = resultingForce / mass
         val deltaVelocity = acceleration * deltaT
         val newVelocity = velocity + deltaVelocity
