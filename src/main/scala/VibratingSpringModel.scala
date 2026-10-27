@@ -7,11 +7,14 @@ object VibratingSpringModel {
 
   val startVelocity = 0.0
   val springConstant = 2.0
+  val airResistanceConstant = 10.0
   val startDisplacement = 0.0005
   val deltaT = 0.01
   val mass = 0.010
 
   def springForce(displacement: Double): Double = -springConstant * displacement
+
+  def airResistance(velocity: Double): Double = airResistanceConstant * math.pow(velocity, 2)
 
   def compute(): List[(Double, Double, Double)] = {
 
@@ -19,10 +22,11 @@ object VibratingSpringModel {
     def loop(time: Double, displacement: Double, velocity: Double,
              result: List[(Double, Double, Double)]): List[(Double, Double, Double)] = {
 
-      if (time >= 5.0) {
+      if (time >= 10.0) {
         result
       } else {
-        val acceleration = springForce(displacement) / mass
+        val resultingForce = springForce(displacement) - airResistance(velocity)
+        val acceleration = resultingForce / mass
         val deltaVelocity = acceleration * deltaT
         val newVelocity = velocity + deltaVelocity
 
