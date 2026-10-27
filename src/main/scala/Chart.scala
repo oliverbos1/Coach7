@@ -46,6 +46,8 @@ object Chart {
     chart.getStyler.setXAxisMin(0.0)
 
     val chart2 = buildChart(xTitle, y2Title)
+
+
     chart2.getStyler.setLegendVisible(false)
     chart2.getStyler.setXAxisMin(xMin)
 
