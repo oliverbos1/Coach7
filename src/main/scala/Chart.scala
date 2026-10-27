@@ -36,6 +36,10 @@ object Chart {
               color1: Color = Color.RED, color2: Color = Color.BLUE): Unit = {
     val xMin = values.map(_._1).min
     val xMax = values.map(_._1).max
+    val y1Min = values.map(_._2).min
+    val y1Max = values.map(_._2).max
+    val y2Max = values.map(_._3).max
+    val y2Min = values.map(_._3).min
 
     val chart = buildChart(xTitle, y1Title)
     chart.getStyler.setLegendVisible(false)
@@ -46,8 +50,8 @@ object Chart {
     chart2.getStyler.setXAxisMin(xMin)
 
     // Adding x- and y-axis by adding a series
-    addAxises(values.map(_._1).min, values.map(_._1).max, values.map(_._2).min, values.map(_._2).max, chart)
-    addAxises(values.map(_._1).min, values.map(_._1).max, values.map(_._3).min, values.map(_._3).max, chart2)
+    addAxises(xMin, xMax, y1Min, y1Max, chart)
+    addAxises(xMin, xMax, y2Min, y2Max, chart2)
 
     val chartData1 = values.map { case (times, y1, _) =>
       (times, y1)
