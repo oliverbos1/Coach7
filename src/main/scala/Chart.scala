@@ -43,13 +43,9 @@ object Chart {
 
     val chart = buildChart(xTitle, y1Title)
     chart.getStyler.setLegendVisible(false)
-    chart.getStyler.setXAxisMin(0.0)
 
     val chart2 = buildChart(xTitle, y2Title)
-
-
     chart2.getStyler.setLegendVisible(false)
-    chart2.getStyler.setXAxisMin(xMin)
 
     // Adding x- and y-axis by adding a series
     addAxises(xMin, xMax, y1Min, y1Max, chart)
