@@ -1,5 +1,6 @@
 package com.oliverbos1.coach7
 
+import org.knowm.xchart.internal.series.Series
 import org.knowm.xchart.style.markers.SeriesMarkers
 import org.knowm.xchart.{SwingWrapper, XYChart, XYChartBuilder}
 
@@ -21,6 +22,9 @@ object Chart {
       .build()
     chart.getStyler.setLegendVisible(false)
 
+    // Adding x-axis by adding a series
+    addXAxis(values.map(_._1).min, values.map(_._1).max, chart)
+
     val (xValues, yValues) = values.unzip
     chart.addSeries("Bleah", xValues.toArray, yValues.toArray)
       .setMarker(SeriesMarkers.NONE).setLineColor(color).setShowInLegend(false)
@@ -41,14 +45,8 @@ object Chart {
     chart2.getStyler.setXAxisMin(xMin)
 
     // Adding x-axis by adding a series
-    chart.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
-      .setMarker(SeriesMarkers.NONE)
-      .setLineColor(Color.GRAY)
-      .setShowInLegend(false)
-    chart2.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
-      .setMarker(SeriesMarkers.NONE)
-      .setLineColor(Color.GRAY)
-      .setShowInLegend(false)
+    addXAxis(values.map(_._1).min, values.map(_._1).max, chart)
+    addXAxis(values.map(_._1).min, values.map(_._1).max, chart2)
 
     val chartData1 = values.map { case (times, y1, _) =>
       (times, y1)
@@ -75,6 +73,13 @@ object Chart {
       .xAxisTitle(xTitle)
       .yAxisTitle(yTitle)
       .build()
+  }
+
+  def addXAxis(xMin: Double, xMax: Double, chart: XYChart): Series = {
+    chart.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
+      .setMarker(SeriesMarkers.NONE)
+      .setLineColor(Color.GRAY)
+      .setShowInLegend(false)
   }
 
 }
