@@ -31,7 +31,7 @@ object CyclistRollingOutModel {
         val newDistance = distance + deltaDistance
 
         val newTime = time + deltaT
-        
+
         loop(newTime, newVelocity, newDistance, result :+ (time, velocity, distance))
       }
     }
@@ -41,13 +41,6 @@ object CyclistRollingOutModel {
 
   @main def runCyclistRollingOutModel(): Unit = {
     val chartData = CyclistRollingOutModel.compute()
-    val velocityChartData = chartData.map { case (times, velocities, _) =>
-      (times, velocities)
-    }
-    val distanceChartData = chartData.map { case (times, _, distances) =>
-      (times, distances)
-    }
-    Chart.display(values = velocityChartData, xTitle = "Time (s)", yTitle = "Velocity (m/s)", Color.BLUE)
-    Chart.display(values = distanceChartData, xTitle = "Time (s)", yTitle = "Distance (m)", Color(155, 80, 255))
+    Chart.display(chartData, "Time (s)", "Velocity (m/s)", "Distance (m)")
   }
 }

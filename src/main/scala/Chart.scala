@@ -32,7 +32,8 @@ object Chart {
     new SwingWrapper(chart).displayChart()
   }
 
-  def display(values: List[(Double, Double, Double)], xTitle: String, y1Title: String, y2Title: String, color1: Color, color2: Color): Unit = {
+  def display(values: List[(Double, Double, Double)], xTitle: String, y1Title: String, y2Title: String,
+              color1: Color = Color.RED, color2: Color = Color.BLUE): Unit = {
     val xMin = values.map(_._1).min
     val xMax = values.map(_._1).max
 

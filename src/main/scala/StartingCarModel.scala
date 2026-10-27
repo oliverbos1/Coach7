@@ -42,13 +42,6 @@ object StartingCarModel {
 
   @main def runStartingCarModel(): Unit = {
     val chartData = StartingCarModel.compute()
-    val velocityChartData = chartData.map { case (times, velocities, _) =>
-      (times, velocities)
-    }
-    val distanceChartData = chartData.map { case (times, _, distance) =>
-      (times, distance)
-    }
-    Chart.display(velocityChartData, "Time (s)", "Velocity (m/s)", Color.CYAN)
-    Chart.display(distanceChartData, "Time (s)", "Distance (m)", Color.ORANGE)
+    Chart.display(chartData, "Time(s)", "Velocity (m/s)", "Distance (m)")
   }
 }
