@@ -44,13 +44,6 @@ object VibratingSpringModel {
 
   @main def runVibratingSpringModel(): Unit = {
     val chartData = VibratingSpringModel.compute()
-    val displacementChartData = chartData.map { case (times, displacements, _) =>
-      (times, displacements)
-    }
-    val velocityChartData = chartData.map { case (times, _, velocities) =>
-      (times, velocities)
-    }
-    Chart.display(displacementChartData, "Time (s)", "Displacement (m)", Color(155, 85, 240))
-    Chart.display(velocityChartData, "Time (s)", "Velocity (m/s)", Color.BLUE)
+    Chart.display(chartData, "Time (s)", "Displacement (m)", "Velocity (m/s)", Color.RED, Color.BLUE)
   }
 }

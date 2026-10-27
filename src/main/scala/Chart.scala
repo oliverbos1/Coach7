@@ -1,9 +1,10 @@
 package com.oliverbos1.coach7
 
 import org.knowm.xchart.style.markers.SeriesMarkers
-import org.knowm.xchart.{SwingWrapper, XYChartBuilder}
+import org.knowm.xchart.{SwingWrapper, XYChart, XYChartBuilder}
 
 import java.awt.{Color, Toolkit}
+import scala.jdk.CollectionConverters.*
 
 object Chart {
 
@@ -25,6 +26,55 @@ object Chart {
       .setMarker(SeriesMarkers.NONE).setLineColor(color).setShowInLegend(false)
 
     new SwingWrapper(chart).displayChart()
+  }
+
+  def display(values: List[(Double, Double, Double)], xTitle: String, y1Title: String, y2Title: String, color1: Color, color2: Color): Unit = {
+    val xMin = values.map(_._1).min
+    val xMax = values.map(_._1).max
+
+    val chart = buildChart(xTitle, y1Title)
+    chart.getStyler.setLegendVisible(false)
+    chart.getStyler.setXAxisMin(0.0)
+
+    val chart2 = buildChart(xTitle, y2Title)
+    chart2.getStyler.setLegendVisible(false)
+    chart2.getStyler.setXAxisMin(xMin)
+
+    // Adding x-axis by adding a series
+    chart.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
+      .setMarker(SeriesMarkers.NONE)
+      .setLineColor(Color.GRAY)
+      .setShowInLegend(false)
+    chart2.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
+      .setMarker(SeriesMarkers.NONE)
+      .setLineColor(Color.GRAY)
+      .setShowInLegend(false)
+
+    val chartData1 = values.map { case (times, y1, _) =>
+      (times, y1)
+    }
+    val chartData2 = values.map { case (times, _, y2) =>
+      (times, y2)
+    }
+
+    val (x1, y1) = chartData1.unzip
+    val (x2, y2) = chartData2.unzip
+
+    chart.addSeries("1", x1.toArray, y1.toArray)
+      .setMarker(SeriesMarkers.NONE).setLineColor(color1).setShowInLegend(false)
+    chart2.addSeries("2", x2.toArray, y2.toArray)
+      .setMarker(SeriesMarkers.NONE).setLineColor(color2).setShowInLegend(false)
+
+    new SwingWrapper[XYChart](List(chart, chart2).asJava, 2, 1).setTitle("Results").displayChartMatrix()
+  }
+
+  def buildChart(xTitle: String, yTitle: String): XYChart = {
+    new XYChartBuilder()
+      .width(width)
+      .height(height)
+      .xAxisTitle(xTitle)
+      .yAxisTitle(yTitle)
+      .build()
   }
 
 }
