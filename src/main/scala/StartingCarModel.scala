@@ -28,7 +28,7 @@ object StartingCarModel {
         val deltaVelocity = acceleration * deltaT
         val newVelocity = velocity + deltaVelocity
 
-        val deltaDistance = velocity * deltaT
+        val deltaDistance = newVelocity * deltaT
         val newDistance = distance + deltaDistance
 
         val newTime = time + deltaT

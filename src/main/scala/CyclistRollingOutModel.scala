@@ -26,11 +26,12 @@ object CyclistRollingOutModel {
         val acceleration = -resultingForce / mass
         val deltaVelocity = acceleration * deltaT
         val newVelocity = velocity + deltaVelocity
-        val newTime = time + deltaT
 
-        val deltaDistance = velocity * deltaT
+        val deltaDistance = newVelocity * deltaT
         val newDistance = distance + deltaDistance
 
+        val newTime = time + deltaT
+        
         loop(newTime, newVelocity, newDistance, result :+ (time, velocity, distance))
       }
     }
