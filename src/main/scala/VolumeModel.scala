@@ -1,17 +1,15 @@
 package com.oliverbos1.coach7
 
-import org.knowm.xchart.{SwingWrapper, XYChartBuilder}
-
 import java.awt.Color
 import scala.annotation.tailrec
 
 object VolumeModel {
 
-  val initialVolume = 10.0
-  val decreasePerStep = 1.0
-  val deltaT = 1.0
+  private val initialVolume = 10.0
+  private val decreasePerStep = 1.0
+  private val deltaT = 1.0
 
-  def compute(): List[(Double, Double)] = {
+  private def compute(): List[(Double, Double)] = {
 
     @tailrec
     def loop(t: Double, v: Double, result: List[(Double, Double)]): List[(Double, Double)] = {

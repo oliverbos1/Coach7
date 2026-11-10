@@ -69,7 +69,7 @@ object Chart {
     new SwingWrapper[XYChart](List(chart, chart2).asJava, 2, 1).setTitle("Results").displayChartMatrix()
   }
 
-  def buildChart(xTitle: String, yTitle: String): XYChart = {
+  private def buildChart(xTitle: String, yTitle: String): XYChart = {
     new XYChartBuilder()
       .width(width)
       .height(height)
@@ -78,7 +78,7 @@ object Chart {
       .build()
   }
 
-  def addAxes(xMin: Double, xMax: Double, yMin: Double, yMax: Double, chart: XYChart): Series = {
+  private def addAxes(xMin: Double, xMax: Double, yMin: Double, yMax: Double, chart: XYChart): Series = {
     chart.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
       .setMarker(SeriesMarkers.NONE)
       .setLineColor(Color.GRAY)

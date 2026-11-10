@@ -1,19 +1,18 @@
 package com.oliverbos1.coach7
 
-import java.awt.Color
 import scala.annotation.tailrec
 
 object StartingCarModel {
 
-  val mass = 1000
-  val airResistanceConstant = 0.26
-  val startVelocity = 0.0
-  val deltaT = 0.01
-  val motorForce = 2500
+  private val mass = 1000
+  private val airResistanceConstant = 0.26
+  private val startVelocity = 0.0
+  private val deltaT = 0.01
+  private val motorForce = 2500
 
-  def airResistance(velocity: Double): Double = airResistanceConstant * math.pow(velocity, 2)
-
-  def compute(): List[(Double, Double, Double)] = {
+  private def airResistance(velocity: Double): Double = airResistanceConstant * math.pow(velocity, 2)
+  
+  private def compute(): List[(Double, Double, Double)] = {
 
     @tailrec
     def loop(time: Double, velocity: Double, distance: Double,

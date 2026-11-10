@@ -4,20 +4,18 @@ import scala.annotation.tailrec
 
 object VibratingSpringModel {
 
-  val startVelocity = 0.0
-  val springConstant = 0.5
-  val airResistanceConstant = 10.0
-  val startDisplacement = 0.0005
-  val deltaT = 0.01
-  val mass = 0.010
+  private val startVelocity = 0.0
+  private val springConstant = 0.5
+  private val airResistanceConstant = 10.0
+  private val startDisplacement = 0.0005
+  private val deltaT = 0.01
+  private val mass = 0.010
 
-  val airResistanceEnabled = true
+  private val airResistanceEnabled = true
+  private def springForce(displacement: Double): Double = -springConstant * displacement
+  private def airResistance(velocity: Double): Double = airResistanceConstant * velocity * velocity.abs
 
-  def springForce(displacement: Double): Double = -springConstant * displacement
-
-  def airResistance(velocity: Double): Double = airResistanceConstant * velocity * velocity.abs
-
-  def compute(): List[(Double, Double, Double)] = {
+  private def compute(): List[(Double, Double, Double)] = {
 
     @tailrec
     def loop(time: Double, displacement: Double, velocity: Double,
