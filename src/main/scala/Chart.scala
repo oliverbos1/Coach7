@@ -23,7 +23,7 @@ object Chart {
     chart.getStyler.setLegendVisible(false)
 
     // Adding x- and y-axis by adding a series
-    addAxises(values.map(_._1).min, values.map(_._1).max, values.map(_._2).min, values.map(_._2).max, chart)
+    addAxes(values.map(_._1).min, values.map(_._1).max, values.map(_._2).min, values.map(_._2).max, chart)
 
     val (xValues, yValues) = values.unzip
     chart.addSeries("Bleah", xValues.toArray, yValues.toArray)
@@ -48,8 +48,8 @@ object Chart {
     chart2.getStyler.setLegendVisible(false)
 
     // Adding x- and y-axis by adding a series
-    addAxises(xMin, xMax, y1Min, y1Max, chart)
-    addAxises(xMin, xMax, y2Min, y2Max, chart2)
+    addAxes(xMin, xMax, y1Min, y1Max, chart)
+    addAxes(xMin, xMax, y2Min, y2Max, chart2)
 
     val chartData1 = values.map { case (times, y1, _) =>
       (times, y1)
@@ -78,7 +78,7 @@ object Chart {
       .build()
   }
 
-  def addAxises(xMin: Double, xMax: Double, yMin: Double, yMax: Double, chart: XYChart): Series = {
+  def addAxes(xMin: Double, xMax: Double, yMin: Double, yMax: Double, chart: XYChart): Series = {
     chart.addSeries("x", Array(xMin, xMax), Array(0.0, 0.0))
       .setMarker(SeriesMarkers.NONE)
       .setLineColor(Color.GRAY)
